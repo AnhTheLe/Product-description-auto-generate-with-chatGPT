@@ -5,9 +5,9 @@ const PromptRouter = require("./routers/PromptRouter");
 const app = express();
 
 const corsOpts = {
-    origin: "http://localhost:3000",
-    credentials: true,
-    optionSuccessStatus: 200,
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type"],
 };
 
 app.use(cors(corsOpts));
@@ -33,11 +33,27 @@ app.use(
 );
 
 app.get("/", (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Max-Age", "1800");
+    res.setHeader("Access-Control-Allow-Headers", "content-type");
+    res.setHeader(
+        "Access-Control-Allow-Methods",
+        "PUT, POST, GET, DELETE, PATCH, OPTIONS"
+    );
     res.send("SUCCESS");
 });
 
 // routing
 app.use(PromptRouter, function (req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Max-Age", "1800");
+    res.setHeader("Access-Control-Allow-Headers", "content-type");
+    res.setHeader(
+        "Access-Control-Allow-Methods",
+        "PUT, POST, GET, DELETE, PATCH, OPTIONS"
+    );
     next();
 });
 app.use((req, res, next) => {

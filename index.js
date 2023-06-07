@@ -40,6 +40,10 @@ app.get("/", (req, res) => {
 app.use(PromptRouter, function (req, res, next) {
     next();
 });
+app.use((req, res, next) => {
+    res.header({"Access-Control-Allow-Origin": "*"});
+    next();
+  })
 
 app.listen(5000, () => {
     console.log("Server started on Port 5000.");

@@ -5,9 +5,9 @@ const PromptRouter = require("./routers/PromptRouter");
 const app = express();
 
 const corsOpts = {
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: "http://localhost:3000",
+    credentials: true,
+    optionSuccessStatus: 200,
 };
 
 app.use(cors(corsOpts));
@@ -41,9 +41,9 @@ app.use(PromptRouter, function (req, res, next) {
     next();
 });
 app.use((req, res, next) => {
-    res.header({"Access-Control-Allow-Origin": "*"});
+    res.header({ "Access-Control-Allow-Origin": "*" });
     next();
-  })
+});
 
 app.listen(5000, () => {
     console.log("Server started on Port 5000.");
